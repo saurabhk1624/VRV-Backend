@@ -1,7 +1,3 @@
-# Project Name
-
-A brief description of your project. Highlight its purpose and functionality.
-
 ## Prerequisites
 
 Before getting started, make sure you have the following installed:
