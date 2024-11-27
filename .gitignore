@@ -1,0 +1,13 @@
+__pycache__
+db
+env
+secret
+grievance/migrations
+no_auth/migrations
+common/migrations
+grievance/__pycache__
+no_auth/__pycache__
+common/__pycache__
+
+
+

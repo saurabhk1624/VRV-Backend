@@ -1,0 +1,49 @@
+services:
+  vr_django:
+    container_name: vr_django
+    build:
+      context: ../..
+      dockerfile: ./docker/non-production/Dockerfile
+    ports:
+      - "8004:8000"
+    restart: always
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    depends_on:
+      - vr_sql
+    volumes:
+      - ../..:/assignment
+    networks:
+      - backend
+
+  vr_sql:
+    image: mysql:8
+    container_name: vr_sql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: assignment@erp
+      MYSQL_DATABASE: vrs
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: assignment@erp
+    volumes:
+      - ../../db/:/var/lib/mysql
+    ports:
+      - "3316:3306"
+    networks:
+      - backend
+
+  vr_admin:
+    image: phpmyadmin/phpmyadmin
+    container_name: vr_admin
+    environment:
+      PMA_HOST: vr_sql
+      MYSQL_ROOT_PASSWORD: assignment@erp
+    ports:
+      - "93:80"
+    restart: always
+    depends_on:
+      - vr_sql
+    networks:
+      - backend
+networks:
+  backend:
+    name: backend
